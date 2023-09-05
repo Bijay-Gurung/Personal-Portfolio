@@ -18,29 +18,62 @@ body{
     background-size: cover;
     border-radius: 25% 75% 73% 27% / 64% 58% 42% 36%;
     position: relative;
-    top: 40px;
-    left: 180px;
+    top: 200px;
+    left: 47%;
     box-shadow: 4px 3px 10px 3px #BEB7AF;
 }
 h1{
-    padding-left: 15px;
+    padding-top: 20px;
+    padding-left: 27%;
+   font-size: xx-large;
+    color: bisque;
 }
-h1:hover{
-    text-decoration: underline;
-    color: rgb(124, 175, 199);
-}
-h2{
+p{
     margin-top: 10px;
-    padding-left: 10px;
+    padding-left: 27%;
 }
 span{
     color: rgb(124, 175, 199);
 }
-i:hover{
-    color: rgb(124, 175, 199);
+.mail{
+    margin-top: 10px;
+    padding-left: 27%;
+    font-size: x-large;
 }
-h3, .mail{
-    display: inline-flex;
+i:hover{
+    color: rgb(90, 149, 209);
+}
+h3{
+    color: bisque;
+}
+header{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+nav{
+    flex: 1;
+    text-align: center;
+}
+nav ul{
+    display: inline-block;
+    list-style-type: none;
+}
+nav ul li{
+    display: inline-block;
+    margin-right: 20px;
+    font-size: large;
+}
+nav ul li a{
     text-decoration: none;
-    padding-left: 10px;
+}
+nav ul li a:hover{
+    text-decoration: underline;
+    color: bisque;
+}
+nav ul li #instagram:hover{
+    color: rgb(255, 0, 0);
+}
+nav ul li #github:hover{
+    color: #000;
 }
