@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+}
+body{
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(31,31,90,1) 35%, rgb(74, 149, 164) 94%);
+}
+header{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+nav{
+    flex: 1;
+    text-align: center;
+}
+nav ul{
+    display: inline-block;
+    list-style-type: none;
+}
+nav ul li{
+    display: inline-block;
+    margin-right: 20px;
+    font-size: large;
+}
+nav ul li a{
+    text-decoration: none;
+}
+nav ul li a:hover{
+    text-decoration: underline;
+    color: bisque;
+}
+nav ul li #instagram:hover{
+    color: rgb(255, 0, 0);
+}
+nav ul li #github:hover{
+    color: #000;
+}
+input{
+    color: #000;
+}
+.registration{
+    height: 400px;
+    width: 400px;
+    background-color: green;
+    margin: auto;
+}
