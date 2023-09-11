@@ -55,9 +55,15 @@ nav ul li #github:hover{
     position: relative;
     top: 50px;
     left: 16%;
+    display: grid;
+    grid-template-rows: repeat(7, 100px);
+    grid-template-columns: repeat(14, 100px);
 }
 .project h1{
-    text-align: center;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 5;
+    grid-column-end: 7;
     margin-top: 10px;
 }
 .project .weather{
@@ -67,14 +73,36 @@ nav ul li #github:hover{
     background-position: center;
     background-size: cover;
     border-radius: 15px;
-    position: relative;
-    left: 20px;
     box-shadow: 4px 3px 10px 3px #BEB7AF;
+    grid-row-start: 2;
+    grid-row-end: 4;
+    grid-column-start: 2;
+    grid-column-end: 4;
 }
 .project .weather a{
    font-size: small;
+   text-decoration: none;
+   position: relative;
+   top: 210px;
+   left: 45px;
+}
+.project .toDoList{
+    height: 200px;
+    width: 200px;
+    background-image: url(images/toDoList\ Project.png);
+    background-position: center;
+    background-size: cover;
+    border-radius: 15px;
+    box-shadow: 4px 3px 10px 3px #BEB7AF;
+    grid-row-start: 2;
+    grid-row-end: 4;
+    grid-column-start: 5;
+    grid-column-end: 7;
+}
+.project .toDoList a{
+    font-size: small;
+    text-decoration: none;
     position: relative;
     top: 210px;
-    left: 50px;
-    text-decoration: none;
+    left: 60px;
 }
