@@ -35,6 +35,9 @@ nav ul li a:hover{
     text-decoration: underline;
     color: bisque;
 }
+nav ul li #linkedin:hover{
+    color: rgb(90, 149, 209);
+}
 nav ul li #instagram:hover{
     color: rgb(255, 0, 0);
 }
