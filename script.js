@@ -9,3 +9,7 @@ function ChangingText() {
 
 ChangingText();
 setInterval(ChangingText, 2000);
+
+function myResume(){
+    window.open("White Simple Student Cv Resume.pdf");
+}

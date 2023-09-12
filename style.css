@@ -77,3 +77,15 @@ nav ul li #instagram:hover{
 nav ul li #github:hover{
     color: #000;
 }
+button{
+    border-radius: 8px;
+    position: relative;
+    left: 26%;
+    background-color: #ffffff05;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(25px);
+    box-shadow: 2px 2px 10px 2px #BEB7AF;
+}
+#resume{
+    padding-right: 0.3em;
+}
