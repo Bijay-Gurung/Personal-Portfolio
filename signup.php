@@ -45,27 +45,27 @@ function test_input($data){
 }
 
 /*database connection*/
-$db_host= 'Localhost';
+$db_host= 'localhost';
 $db_user = 'root';
 $db_pass = '';
 $db_name = 'signup';
 
 $conn = new mysqli($db_host,$db_user,$db_pass,$db_name);
-if($conn -> Connect_error){
-    die("Connection failed: ".$conn -> Connect_error);
+if($conn->connect_error){
+    die("Connection failed: ".$conn->connect_error);
 }
 if($_SERVER['REQUEST_METHOD']==='POST'){
     $name = $_POST['userName'];
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $sql = "Insert INTO signUP(ID,name,email,password) values ('$name','$email','$password')";
+    $sql = "INSERT INTO signup(name,email,password) values ('$name','$email','$password')";
 
     if($conn->query($sql)===TRUE){
-        echo "Data stored Successfully";
+        $result= "Data stored Successfully";
     }
     else{
-        echo "Error: ".$sql."<br>".$conn->error;
+        $result = "Error: ".$sql."<br>".$conn->error;
     }
 }
 $conn->close();
@@ -76,26 +76,30 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="signup.css" rel="stylesheet">
     <title>Signup</title>
 </head>
 <body>
     <div class="signup">
         <h1>Signup Form</h1>
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-            <label name="Username"></label>
+            <label name="Username"><i class="fa-solid fa-user"></i></label>
             <input type="text" id="userName"  name="userName" placeholder="User Name: " value="<?php echo $name; ?>">
             <span class="error">*<?php echo $nameErr; ?></span>
             <br>
-            <label name="email"></label>
+            <label name="email"><i class="fa-solid fa-envelope"></i></label>
             <input type="email" id="email" name="email" placeholder="email: " value="<?php echo $email; ?>">
             <span class="error">*<?php echo $emailErr; ?></span>
             <br>
-            <label name="password"></label>
+            <label name="password"><i class="fa-solid fa-lock"></i></label>
             <input type="password" id="password" name="password" placeholder="password: " value="<?php echo $password; ?>">
             <span class="error">*<?php echo $passwordErr; ?></span>
             <br>
             <input type="submit" id="submitBtn">
+            <br>
+            <span class="success"><?php echo $result?></span>
         </form>
     </div>
+    <script src="https://kit.fontawesome.com/4f9d824da5.js" crossorigin="anonymous"></script>
 </body>
 </html>
