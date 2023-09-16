@@ -2,6 +2,7 @@
 /*form Validate*/
 $name=$email=$password="";
 $nameErr=$emailErr=$passwordErr="";
+$insertResult = "";
 
 if($_SERVER["REQUEST_METHOD"]=="POST"){
     if(empty($_POST["userName"])){
@@ -62,12 +63,27 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     $sql = "INSERT INTO signup(name,email,password) values ('$name','$email','$password')";
 
     if($conn->query($sql)===TRUE){
-        $result= "Data stored Successfully";
+        $insertResult= "Data stored Successfully";
     }
     else{
-        $result = "Error: ".$sql."<br>".$conn->error;
+        $insertResult = "Error: ".$sql."<br>".$conn->error;
     }
 }
+
+$sql = "SELECT * FROM signup";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    $users = $result->fetch_all(MYSQLI_ASSOC);
+    
+    foreach ($users as $user) {
+        if ($user['name'] == $name && $user['email'] == $email && $user['password'] == $password) {
+            header("location: blog.html");
+            exit(); 
+        }
+    }
+}
+
 $conn->close();
 ?>
 
@@ -97,7 +113,7 @@ $conn->close();
             <br>
             <input type="submit" id="submitBtn">
             <br>
-            <span class="success"><?php echo $result?></span>
+            <span class="success"><?php echo $insertResult ?></span>
         </form>
     </div>
     <script src="https://kit.fontawesome.com/4f9d824da5.js" crossorigin="anonymous"></script>
