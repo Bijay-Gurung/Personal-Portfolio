@@ -5,16 +5,6 @@ $nameErr=$emailErr=$passwordErr="";
 $insertResult = "";
 
 if($_SERVER["REQUEST_METHOD"]=="POST"){
-    if(empty($_POST["userName"])){
-        $nameErr = "Name is Required";
-    }
-    else{
-        $name = test_input($_POST["userName"]);
-        if(!preg_match("/^[a-zA-Z-' ]*$/", $name)){
-            $nameErr = "Only letters and whitespace allowed";
-        }
-    }
-
     if(empty($_POST["email"])){
         $emailErr= "Email is Required";
     }
@@ -35,8 +25,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         }
     }
 }
-
-$name=$email=$password="";
+$email=$password="";
 
 function test_input($data){
     $data = trim($data);
@@ -49,18 +38,17 @@ function test_input($data){
 $db_host= 'localhost';
 $db_user = 'root';
 $db_pass = '';
-$db_name = 'signup';
+$db_name = 'login';
 
 $conn = new mysqli($db_host,$db_user,$db_pass,$db_name);
 if($conn->connect_error){
     die("Connection failed: ".$conn->connect_error);
 }
 if($_SERVER['REQUEST_METHOD']==='POST'){
-    $name = $_POST['userName'];
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $sql = "INSERT INTO signup(name,email,password) values ('$name','$email','$password')";
+    $sql = "INSERT INTO login(email,password) values ('$email','$password')";
 
     if($conn->query($sql)===TRUE){
         $insertResult= "Data stored Successfully";
@@ -70,15 +58,15 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     }
 }
 
-$sql = "SELECT * FROM signup";
+$sql = "SELECT * FROM login";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     $users = $result->fetch_all(MYSQLI_ASSOC);
     
     foreach ($users as $user) {
-        if ($user['name'] == $name && $user['email'] == $email && $user['password'] == $password) {
-            header("location: login.php");
+        if ($user['email'] == $email && $user['password'] == $password) {
+            header("location: admin.php");
             exit(); 
         }
     }
@@ -92,17 +80,13 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="signup.css" rel="stylesheet">
+    <link href="login.css" rel="stylesheet">
     <title>Signup</title>
 </head>
 <body>
     <div class="signup">
-        <h1>Signup Form</h1>
+        <h1>Login Form</h1>
         <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-            <label name="Username"><i class="fa-solid fa-user"></i></label>
-            <input type="text" id="userName"  name="userName" placeholder="User Name: " value="<?php echo $name; ?>">
-            <span class="error">*<?php echo $nameErr; ?></span>
-            <br>
             <label name="email"><i class="fa-solid fa-envelope"></i></label>
             <input type="email" id="email" name="email" placeholder="email: " value="<?php echo $email; ?>">
             <span class="error">*<?php echo $emailErr; ?></span>
