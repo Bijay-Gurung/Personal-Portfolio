@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+    color: #fff;
+}
+body{
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(31,31,90,1) 35%, rgb(74, 149, 164) 94%);
+    display: grid;
+    grid-template-rows: repeat(7,100px);
+    grid-template-columns: repeat(16,100px);
+}
+.userProfile{
+    height: 50px;
+    width: 20%;
+    float: right;
+    background-image: url(Karma.jpg);
+    background-position: center;
+    background-size: cover;
+    border-radius: 90px;
+    margin-top: 8px;
+}
+.sideNav{
+   background-color: #ffffff05;
+   backdrop-filter: blur(10px);
+   -webkit-backdrop-filter: blur(25px);
+   height:739px;
+   width:250px;
+}
+span{
+    color:#ffffffc6;
+    font-size: small;
+    padding-left: 15px;
+}
+h2{
+    text-align: center;
+}
+ul{
+    margin-top: 15px;
+    border-top: 1px solid #fff;
+}
+li{
+    padding-top: 30px;
+    padding-left: 20px;
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+}
+i{
+    padding-right: 10px;
+}
+#setting{
+    display: none;
+}
+section{
+    grid-row-start: 2;
+    grid-row-end: 7;
+    grid-column-start: 4;
+    grid-column-end: 16;
+    display: grid;
+    grid-template-rows: repeat(5,100px);
+    grid-template-columns: repeat(14,100px);
+}
+h1{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 6;
+    grid-column-end: 8;
+}
+input{
+    color: #000;
+    border-radius: 9px;
+}
+#title{
+    width: 500px;
+}
+option{
+    color: #000;
+    border-radius: 9px;
+}
+select{
+    color: #000;
+    border-radius: 9px;
+    width: 500px;
+    margin-top: 20px;
+}
+button{
+    color: #000;
+    border-radius: 9px;
+    width: 70px;
+    margin-top: 20px;
+}
+textarea{
+    color: #000;
+    border-radius: 9px;
+    width: 500px;
+    margin-top: 20px;
+}
+form {
+    position: relative;
+    top: 100px;
+    left: 300px;
+}
+.thumbnail{
+    height: 50px;
+    width: 500px;
+    background-color: #ffffff05;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(25px);
+    box-shadow: 4px 3px 10px 3px #BEB7AF;
+    border-radius: 9px;
+    padding-left: 150px;
+}
+label{
+    margin-top: 20px;
+   font-size: small;
+}
+#publish{
+    margin-top: 20px;
+}
+#myfile{
+    color: #fff;
+    padding-top: 15px;
+}

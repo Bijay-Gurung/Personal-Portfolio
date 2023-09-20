@@ -78,7 +78,7 @@ if ($result->num_rows > 0) {
     
     foreach ($users as $user) {
         if ($user['name'] == $name && $user['email'] == $email && $user['password'] == $password) {
-            header("location: blog.html");
+            header("location: admin.php");
             exit(); 
         }
     }
