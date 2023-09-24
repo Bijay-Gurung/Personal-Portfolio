@@ -1,78 +1,80 @@
 <?php
-/*form Validate*/
-$name=$email=$password="";
-$nameErr=$emailErr=$passwordErr="";
+/* Form Validate */
+$email = $password = "";
+$emailErr = $passwordErr = "";
 $insertResult = "";
 
-if($_SERVER["REQUEST_METHOD"]=="POST"){
-    if(empty($_POST["email"])){
-        $emailErr= "Email is Required";
-    }
-    else{
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_POST["email"])) {
+        $emailErr = "Email is Required";
+    } else {
         $email = test_input($_POST["email"]);
-        if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
-            $emailErr="Invalid Email Format";
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $emailErr = "Invalid Email Format";
         }
     }
 
-    if(empty($_POST["password"])){
-        $passwordErr = "password is required";
-    }
-    else{
+    if (empty($_POST["password"])) {
+        $passwordErr = "Password is required";
+    } else {
         $password = test_input($_POST["password"]);
-        if(strlen($password) < 8 || !preg_match("/[a-zA-z]/",$password) || !preg_match("/\d/",$password)){
-            $passwordErr = "password must be at least 8 character long and contain letters and numbers";
+        if (strlen($password) < 8 || !preg_match("/[a-zA-Z]/", $password) || !preg_match("/\d/", $password)) {
+            $passwordErr = "Password must be at least 8 characters long and contain letters and numbers";
         }
     }
 }
-$email=$password="";
 
-function test_input($data){
+function test_input($data)
+{
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
 }
 
-/*database connection*/
-$db_host= 'localhost';
-$db_user = 'root';
-$db_pass = '';
-$db_name = 'login';
+session_start();
 
-$conn = new mysqli($db_host,$db_user,$db_pass,$db_name);
-if($conn->connect_error){
-    die("Connection failed: ".$conn->connect_error);
-}
-if($_SERVER['REQUEST_METHOD']==='POST'){
+if (isset($_POST['save'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $sql = "INSERT INTO login(email,password) values ('$email','$password')";
+    /* Database connection */
+    $db_host = 'localhost';
+    $db_user = 'root';
+    $db_pass = '';
+    $db_name = 'signup';
 
-    if($conn->query($sql)===TRUE){
-        $insertResult= "Data stored Successfully";
+    $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
-    else{
-        $insertResult = "Error: ".$sql."<br>".$conn->error;
-    }
-}
 
-$sql = "SELECT * FROM login";
-$result = $conn->query($sql);
+    $email = mysqli_real_escape_string($conn, $email);
 
-if ($result->num_rows > 0) {
-    $users = $result->fetch_all(MYSQLI_ASSOC);
-    
-    foreach ($users as $user) {
-        if ($user['email'] == $email && $user['password'] == $password) {
+    // Query the database to check if the provided credentials match
+    $sql = "SELECT * FROM signup WHERE email='$email'";
+    $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) == 1) {
+        $row = mysqli_fetch_assoc($result);
+        if (password_verify($password, $row['password'])) {
+            // Password is correct
+            $_SESSION["ID"] = $row['ID'];
+            $_SESSION["email"] = $row['email'];
+            // Redirect to the home page after successful login
             header("location: admin.php");
-            exit(); 
+            exit();
         }
+        else {
+            // Password is incorrect
+            $passwordErr = "Invalid Password";
+        }
+    } 
+    else {
+        // Email not found in the database
+        $emailErr = "Email not found";
     }
 }
-
-$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -81,7 +83,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="login.css" rel="stylesheet">
-    <title>Signup</title>
+    <title>Login</title>
 </head>
 <body>
     <div class="signup">
