@@ -77,7 +77,7 @@ if ($result->num_rows > 0) {
     $users = $result->fetch_all(MYSQLI_ASSOC);
     
     foreach ($users as $user) {
-        if ($user['name'] == $name && $user['email'] == $email && $user['password'] == $password) {
+        if ($user['name'] == $name && $user['email'] == $email && $user['password'] == $hashedPassword) {
             header("location: login.php");
             exit(); 
         }

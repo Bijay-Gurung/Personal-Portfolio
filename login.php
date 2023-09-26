@@ -62,10 +62,10 @@ if (isset($_POST['email'])) {
         exit();
     } else {
         // Invalid email or password
-        echo "Invalid email or password, try again!";
+        $insertResult = "Invalid email or password, try again!";
     }
 } else {
-    $emailErr = "Email not found";
+    $emailErr = "";
 }
 ?>
 

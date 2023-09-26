@@ -20,7 +20,7 @@
                 <li><a href="comments.php" id="comments"><i class="fa-solid fa-comment"></i>Comments</a></li>
                 <li><a href="#" id="categories"><i class="fa-solid fa-clipboard"></i>Categories and Tags</a></li>
                 <li><a href="#" id="mediaLibrary"><i class="fa-solid fa-folder-open"></i>Media Library</a></li>
-                <li><a href="#" id="user"><i class="fa-solid fa-user"></i>User</a></li>
+                <li><a href="user.php" id="user"><i class="fa-solid fa-user"></i>User</a></li>
                 <li><a href="#" id="notifications"><i class="fa-solid fa-bell"></i>Notifications</a></li>
                 <li><a href="#" id="setting"><i class="fa-solid fa-gear"></i>Setting</a></li>
             </ul>
@@ -52,5 +52,36 @@
 
 </section>
     <script src="https://kit.fontawesome.com/4f9d824da5.js" crossorigin="anonymous"></script>
+
+     <script>
+        // Function to fetch the total number of users from your server
+        function fetchTotalUsers() {
+            // You can use an AJAX request here to fetch the data from your PHP script
+            // For simplicity, I'll demonstrate with PHP code using mysqli
+            <?php
+                $db_host = 'localhost';
+                $db_user = 'root';
+                $db_pass = '';
+                $db_name = 'signup';
+
+                $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
+                if ($mysqli->connect_errno) {
+                    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+                    exit();
+                }
+
+                $sql = "SELECT COUNT(*) as total FROM `signup`";
+                $result = $mysqli->query($sql);
+                $row = $result->fetch_assoc();
+                $totalUsers = $row['total'];
+
+                echo "document.getElementById('numOfUser').textContent = " . $totalUsers . ";";
+                $mysqli->close();
+            ?>
+        }
+
+        // Call the function to fetch and update the total number of users
+        fetchTotalUsers();
+    </script>
 </body>
 </html>

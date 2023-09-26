@@ -1,9 +1,40 @@
+<?php
+$db_host= 'localhost';
+$db_user = 'root';
+$db_pass = '';
+$db_name = 'signup';
+
+$mysqli = new mysqli($db_host,$db_user,$db_pass,$db_name);
+if ($mysqli -> connect_errno) {
+    echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+    exit();
+  }
+  $sql = "SELECT * FROM `signup`";
+  
+  $result = $mysqli -> query($sql);
+  
+  if ($result->num_rows > 0) {
+      echo "<table>";
+      echo "<tr><th>ID</th><th>User</th><th>Email</th></tr>";
+      while ($row = $result->fetch_assoc()) {
+          echo "<tr><td>" . $row["ID"] . "</td> <td>" . $row["name"] . "</td> <td>" . $row["email"] . "</td></tr>";
+      }
+      echo "</table>";
+      echo "";
+  } else {
+      echo "No results found.";
+  }
+  $result->free_result();
+  
+  $mysqli->close();
+  ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="comments.css" rel="stylesheet">
+    <link href="user.css" rel="stylesheet">
     <title>Admin Panel</title>
 </head>
 <body>
@@ -28,9 +59,10 @@
 </aside>
 
 <section> <!--Use Dom for this section-->
-<h1>Comments</h1>
-
+<h1>Users</h1>
+<table id="users"></table>
 </section>
     <script src="https://kit.fontawesome.com/4f9d824da5.js" crossorigin="anonymous"></script>
+    <script src="user.js"></script>
 </body>
 </html>

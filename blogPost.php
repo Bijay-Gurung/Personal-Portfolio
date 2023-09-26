@@ -20,7 +20,7 @@
                 <li><a href="comments.php" id="comments"><i class="fa-solid fa-comment"></i>Comments</a></li>
                 <li><a href="#" id="categories"><i class="fa-solid fa-clipboard"></i>Categories and Tags</a></li>
                 <li><a href="#" id="mediaLibrary"><i class="fa-solid fa-folder-open"></i>Media Library</a></li>
-                <li><a href="#" id="user"><i class="fa-solid fa-user"></i>User</a></li>
+                <li><a href="user.php" id="user"><i class="fa-solid fa-user"></i>User</a></li>
                 <li><a href="#" id="notifications"><i class="fa-solid fa-bell"></i>Notifications</a></li>
                 <li><a href="#" id="setting"><i class="fa-solid fa-gear"></i>Setting</a></li>
             </ul>
