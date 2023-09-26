@@ -18,9 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $passwordErr = "Password is required";
     } else {
         $password = test_input($_POST["password"]);
-        if (strlen($password) < 8 || !preg_match("/[a-zA-Z]/", $password) || !preg_match("/\d/", $password)) {
-            $passwordErr = "Password must be at least 8 characters long and contain letters and numbers";
-        }
     }
 }
 
@@ -32,48 +29,43 @@ function test_input($data)
     return $data;
 }
 
+/* Database connection */
+$db_host = 'localhost';
+$db_user = 'root';
+$db_pass = '';
+$db_name = 'signup';
+
+$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 session_start();
 
-if (isset($_POST['save'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+// When form submitted, check and create user session.
+if (isset($_POST['email'])) {
+    $email = test_input($_POST['email']);
+    $password = test_input($_POST['password']);
 
-    /* Database connection */
-    $db_host = 'localhost';
-    $db_user = 'root';
-    $db_pass = '';
-    $db_name = 'signup';
+    // Retrieve the hashed password from the database based on the provided email
+    $query = "SELECT email, password FROM signup WHERE email = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->bind_result($storedEmail, $storedPassword);
+    $stmt->fetch();
+    $stmt->close();
 
-    $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+    if (password_verify($password, $storedPassword) && $email === $storedEmail) {
+        // Passwords match and email is correct, user is authenticated
+        $_SESSION['email'] = $email;
+        header("Location: admin.php");
+        exit();
+    } else {
+        // Invalid email or password
+        echo "Invalid email or password, try again!";
     }
-
-    $email = mysqli_real_escape_string($conn, $email);
-
-    // Query the database to check if the provided credentials match
-    $sql = "SELECT * FROM signup WHERE email='$email'";
-    $result = mysqli_query($conn, $sql);
-
-    if (mysqli_num_rows($result) == 1) {
-        $row = mysqli_fetch_assoc($result);
-        if (password_verify($password, $row['password'])) {
-            // Password is correct
-            $_SESSION["ID"] = $row['ID'];
-            $_SESSION["email"] = $row['email'];
-            // Redirect to the home page after successful login
-            header("location: admin.php");
-            exit();
-        }
-        else {
-            // Password is incorrect
-            $passwordErr = "Invalid Password";
-        }
-    } 
-    else {
-        // Email not found in the database
-        $emailErr = "Email not found";
-    }
+} else {
+    $emailErr = "Email not found";
 }
 ?>
 

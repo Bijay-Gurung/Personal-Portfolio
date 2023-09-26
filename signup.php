@@ -59,8 +59,8 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     $name = $_POST['userName'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-
-    $sql = "INSERT INTO signup(name,email,password) values ('$name','$email','$password')";
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $sql = "INSERT INTO signup(name,email,password) values ('$name','$email','$hashedPassword')";
 
     if($conn->query($sql)===TRUE){
         $insertResult= "Data stored Successfully";
