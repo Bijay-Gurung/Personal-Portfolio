@@ -73,3 +73,27 @@ h1{
     grid-column-start: 6;
     grid-column-end: 8;
 }
+.categories{
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 5;
+    grid-column-end: 11;
+}
+input{
+    color: #000;
+    border-radius: 9px;
+    border: none;
+    width: 250px;
+}
+button{
+    color: #000;
+    border-radius: 9px;
+    border: none;
+    width: 70px;
+}
+.listOfCategories{
+    grid-row-start: 3;
+    grid-row-end: 6;
+    grid-column-start: 5;
+    grid-column-end: 8;
+}

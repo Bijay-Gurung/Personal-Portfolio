@@ -54,10 +54,7 @@
     <script src="https://kit.fontawesome.com/4f9d824da5.js" crossorigin="anonymous"></script>
 
      <script>
-        // Function to fetch the total number of users from your server
         function fetchTotalUsers() {
-            // You can use an AJAX request here to fetch the data from your PHP script
-            // For simplicity, I'll demonstrate with PHP code using mysqli
             <?php
                 $db_host = 'localhost';
                 $db_user = 'root';
@@ -80,7 +77,6 @@
             ?>
         }
 
-        // Call the function to fetch and update the total number of users
         fetchTotalUsers();
     </script>
 </body>

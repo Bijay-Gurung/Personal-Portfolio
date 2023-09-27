@@ -30,7 +30,7 @@
 <section> <!--Use Dom for this section-->
 <h1>Categories</h1>
 
-<div class="Categories">
+<div class="categories">
     <form method="POST">
         <input type="text" id="category" placeholder="Add new Category" name="category">
         <button onclick="addCategory()" id="add">Add</button>
@@ -44,5 +44,6 @@
 </div>
 </section>
     <script src="https://kit.fontawesome.com/4f9d824da5.js" crossorigin="anonymous"></script>
+    <script src="categories.js"></script>
 </body>
 </html>
