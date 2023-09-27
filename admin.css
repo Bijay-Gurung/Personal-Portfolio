@@ -23,6 +23,12 @@ body{
     border-radius: 90px;
     margin-top: 8px;
 }
+aside{
+    grid-row-start: 1;
+    grid-row-end: 8;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
 .sideNav{
    background-color: #ffffff05;
    backdrop-filter: blur(10px);

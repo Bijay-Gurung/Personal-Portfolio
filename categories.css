@@ -51,16 +51,12 @@ ul{
 li{
     padding-top: 30px;
     padding-left: 20px;
-    list-style-type: none;
 }
 a{
     text-decoration: none;
 }
 i{
     padding-right: 10px;
-}
-#setting{
-    display: none;
 }
 section{
     grid-row-start: 2;
@@ -76,59 +72,4 @@ h1{
     grid-row-end: 2;
     grid-column-start: 6;
     grid-column-end: 8;
-}
-input{
-    color: #000;
-    border-radius: 9px;
-}
-#title{
-    width: 500px;
-}
-option{
-    color: #000;
-    border-radius: 9px;
-}
-select{
-    color: #000;
-    border-radius: 9px;
-    width: 500px;
-    margin-top: 20px;
-}
-button{
-    color: #000;
-    border-radius: 9px;
-    width: 70px;
-    margin-top: 20px;
-}
-textarea{
-    color: #000;
-    border-radius: 9px;
-    width: 500px;
-    margin-top: 20px;
-}
-form {
-    position: relative;
-    top: 100px;
-    left: 300px;
-}
-.thumbnail{
-    height: 50px;
-    width: 500px;
-    background-color: #ffffff05;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(25px);
-    box-shadow: 4px 3px 10px 3px #BEB7AF;
-    border-radius: 9px;
-    padding-left: 150px;
-}
-label{
-    margin-top: 20px;
-   font-size: small;
-}
-#publish{
-    margin-top: 20px;
-}
-#myfile{
-    color: #fff;
-    padding-top: 15px;
 }

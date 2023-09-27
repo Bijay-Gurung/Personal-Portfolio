@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="comments.css" rel="stylesheet">
+    <link href="categories.css" rel="stylesheet">
     <title>Admin Panel</title>
 </head>
 <body>
@@ -28,8 +28,20 @@
 </aside>
 
 <section> <!--Use Dom for this section-->
-<h1>Comments</h1>
+<h1>Categories</h1>
 
+<div class="Categories">
+    <form method="POST">
+        <input type="text" id="category" placeholder="Add new Category" name="category">
+        <button onclick="addCategory()" id="add">Add</button>
+    </form>
+</div>
+
+<div class="listOfCategories">
+    <ol>
+        <li>Travelling</li>
+    </ol>
+</div>
 </section>
     <script src="https://kit.fontawesome.com/4f9d824da5.js" crossorigin="anonymous"></script>
 </body>
