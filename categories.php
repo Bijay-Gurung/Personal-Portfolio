@@ -1,4 +1,32 @@
-<!DOCTYPE html>
+<?php
+
+$insertResult="";
+
+/*database connection*/
+$db_host= 'localhost';
+$db_user = 'root';
+$db_pass = '';
+$db_name = 'categories';
+
+$conn = new mysqli($db_host,$db_user,$db_pass,$db_name);
+if($conn->connect_error){
+    die("Connection failed: ".$conn->connect_error);
+}
+if($_SERVER['REQUEST_METHOD']==='POST'){
+    $category = $_POST['category'];
+    $sql = "INSERT INTO categorylists(Category) values ('$category')";
+
+    if($conn->query($sql)===TRUE){
+        $insertResult= "Data stored Successfully";
+    }
+    else{
+        $insertResult = "Error: ".$sql."<br>".$conn->error;
+    }
+}
+$conn->close();
+?>
+  
+  <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -32,15 +60,41 @@
 
 <div class="categories">
     <form method="POST">
-        <input type="text" id="category" placeholder="Add new Category" name="category">
-        <button onclick="addCategory()" id="add">Add</button>
+        <input type="text" id="category" placeholder="Add new Category" name="category" Required>
+        <button type="sumbit">Add</button>
     </form>
 </div>
 
 <div class="listOfCategories">
-    <ol>
-        <li>Travelling</li>
-    </ol>
+    <?php
+    $db_host= 'localhost';
+    $db_user = 'root';
+    $db_pass = '';
+    $db_name = 'categories';
+    
+    $mysqli = new mysqli($db_host,$db_user,$db_pass,$db_name);
+    if ($mysqli -> connect_errno) {
+        echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+        exit();
+      }
+      $sql = "SELECT * FROM `categorylists`";
+      
+      $result = $mysqli -> query($sql);
+      
+      if ($result->num_rows > 0) {
+          echo "<ol>";
+          while ($row = $result->fetch_assoc()) {
+              echo "<li>" . $row["Category"] . "</li>";
+          }
+          echo "</ol>";
+          echo "";
+      } else {
+          echo "No results found.";
+      }
+      $result->free_result();
+      
+      $mysqli->close();
+    ?>
 </div>
 </section>
     <script src="https://kit.fontawesome.com/4f9d824da5.js" crossorigin="anonymous"></script>

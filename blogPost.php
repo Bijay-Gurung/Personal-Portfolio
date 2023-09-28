@@ -32,7 +32,34 @@
     <div class="postSection">
         <form method="POST">
             <input type="text" id="title" placeholder="title" name="title">
-            <select id="categories"></select>
+            <select id="categories">
+            <?php
+$db_host= 'localhost';
+$db_user = 'root';
+$db_pass = '';
+$db_name = 'categories';
+
+$mysqli = new mysqli($db_host,$db_user,$db_pass,$db_name);
+if ($mysqli -> connect_errno) {
+    echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+    exit();
+  }
+  $sql = "SELECT * FROM `categorylists`";
+  
+  $result = $mysqli -> query($sql);
+  
+  if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+          echo "<option>" . $row["Category"] . "</option>";
+      }
+  } else {
+      echo "No results found.";
+  }
+  $result->free_result();
+  
+  $mysqli->close();
+?>
+            </select>
             <textarea rows="6" column="50"></textarea>
             <input type="checkbox" id="publish">
             <label for="publish">Publish</label><br>

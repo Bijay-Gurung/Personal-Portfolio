@@ -78,6 +78,31 @@
         }
 
         fetchTotalUsers();
+
+        function fetchTotalCategories() {
+            <?php
+                $db_host = 'localhost';
+                $db_user = 'root';
+                $db_pass = '';
+                $db_name = 'categories';
+
+                $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
+                if ($mysqli->connect_errno) {
+                    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+                    exit();
+                }
+
+                $sql = "SELECT COUNT(*) as total FROM `categorylists`";
+                $result = $mysqli->query($sql);
+                $row = $result->fetch_assoc();
+                $totalCategory = $row['total'];
+
+                echo "document.getElementById('numOfCategory').textContent = " . $totalCategory . ";";
+                $mysqli->close();
+            ?>
+        }
+
+        fetchTotalCategories();
     </script>
 </body>
 </html>
