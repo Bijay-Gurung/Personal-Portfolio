@@ -1,3 +1,31 @@
+<?php
+/*database connection*/
+$db_host= 'localhost';
+$db_user = 'root';
+$db_pass = '';
+$db_name = 'blogs';
+
+$conn = new mysqli($db_host,$db_user,$db_pass,$db_name);
+if($conn->connect_error){
+    die("Connection failed: ".$conn->connect_error);
+}
+if($_SERVER['REQUEST_METHOD']==='POST'){
+    $title = isset($_POST['title']) ? $_POST['title'] : '';
+    $category = isset($_POST['category']) ? $_POST['category'] : '';
+    $content = isset($_POST['content']) ? $_POST['content'] : '';
+    $image = isset($_POST['image']) ? $_POST['image'] : '';
+    $sql = "INSERT INTO blog(title,category,content,image) values ('$title','$category','$content','$image')";
+
+    if($conn->query($sql)===TRUE){
+        $insertResult= "Data stored Successfully";
+    }
+    else{
+        $insertResult = "Error: ".$sql."<br>".$conn->error;
+    }
+}
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +60,7 @@
     <div class="postSection">
         <form method="POST">
             <input type="text" id="title" placeholder="title" name="title">
-            <select id="categories">
+            <select id="categories" name="category">
             <?php
 $db_host= 'localhost';
 $db_user = 'root';
@@ -60,12 +88,12 @@ if ($mysqli -> connect_errno) {
   $mysqli->close();
 ?>
             </select>
-            <textarea rows="6" column="50"></textarea>
+            <textarea rows="6" column="50" name="content"></textarea>
             <input type="checkbox" id="publish">
             <label for="publish">Publish</label><br>
             <label for="myfile">Add Thumbnail</label><br>
             <div class="thumbnail">
-                <input type="file" id="myfile">
+                <input type="file" id="myfile" name="image">
             </div>
             <button type="submit">Add Post</button>
         </form>
