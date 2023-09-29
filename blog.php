@@ -26,7 +26,37 @@
     </header>
 
     <section>
-        <h1>Nothing Post</h1>
+        <?php
+        $db_host= 'localhost';
+        $db_user = 'root';
+        $db_pass = '';
+        $db_name = 'blogs';
+        
+        $mysqli = new mysqli($db_host,$db_user,$db_pass,$db_name);
+        if ($mysqli -> connect_errno) {
+            echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+            exit();
+          }
+          $sql = "SELECT * FROM `blog`";
+          
+          $result = $mysqli -> query($sql);
+          
+          if ($result->num_rows > 0) {
+              while ($row = $result->fetch_assoc()) {
+                  echo "<div class='blog-post'>";
+                  echo "<h3 class='title'>".$row["title"]."</h3>";
+                  echo "<span class='category'>".$row["category"]."</span>";
+                  echo "<img src='data:image;base64,".base64_encode($row["image"])."' style='height:180px;width:200px;margin-left:22px;'>";
+                  echo "<p class='paragraph'>".$row["content"]."</p>";
+                  echo "</div>";
+              }
+          } else {
+              echo "No results found.";
+          }
+          $result->free_result();
+          
+          $mysqli->close();
+        ?>
     </section>
     <script src="https://kit.fontawesome.com/4f9d824da5.js" crossorigin="anonymous"></script>
 </body>

@@ -1,28 +1,55 @@
 <?php
-/*database connection*/
-$db_host= 'localhost';
+/* Database connection */
+$db_host = 'localhost';
 $db_user = 'root';
 $db_pass = '';
 $db_name = 'blogs';
 
-$conn = new mysqli($db_host,$db_user,$db_pass,$db_name);
-if($conn->connect_error){
-    die("Connection failed: ".$conn->connect_error);
+$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
-if($_SERVER['REQUEST_METHOD']==='POST'){
+
+$insertResult = ""; // Initialize the variable to store the insertion result
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = isset($_POST['title']) ? $_POST['title'] : '';
     $category = isset($_POST['category']) ? $_POST['category'] : '';
     $content = isset($_POST['content']) ? $_POST['content'] : '';
-    $image = isset($_POST['image']) ? $_POST['image'] : '';
-    $sql = "INSERT INTO blog(title,category,content,image) values ('$title','$category','$content','$image')";
 
-    if($conn->query($sql)===TRUE){
-        $insertResult= "Data stored Successfully";
-    }
-    else{
-        $insertResult = "Error: ".$sql."<br>".$conn->error;
+    // File Upload
+    if (isset($_FILES["image"])) {
+        $fileName = basename($_FILES["image"]["name"]);
+        $fileType = pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
+        $fileType = strtolower($fileType);
+
+        // Check File Size (400KB)
+        if ($_FILES["image"]["size"] > 400000) {
+            $insertResult = "Upload Failed. File Size is too Large!";
+        } elseif (!in_array($fileType, ['jpg', 'jpeg', 'png', 'gif'])) {
+            $insertResult = "Upload Failed. Invalid File Type!";
+        } else {
+            $imageData = addslashes(file_get_contents($_FILES['image']['tmp_name']));
+            $sql = "INSERT INTO blog(title, category, content, image) VALUES ('$title', '$category', '$content', '$imageData')";
+
+            if ($conn->query($sql) === TRUE) {
+                $insertResult = "Data stored Successfully";
+            } else {
+                $insertResult = "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
+    } else {
+        // If no file uploaded, insert data without image
+        $sql = "INSERT INTO blog(title, category, content) VALUES ('$title', '$category', '$content')";
+
+        if ($conn->query($sql) === TRUE) {
+            $insertResult = "Data stored Successfully";
+        } else {
+            $insertResult = "Error: " . $sql . "<br>" . $conn->error;
+        }
     }
 }
+
 $conn->close();
 ?>
 
