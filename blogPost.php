@@ -17,19 +17,19 @@ if(isset($_POST["submit"])) {
     $content = isset($_POST['content']) ? $_POST['content'] : '';
      
     $status = 'error'; 
-    if(!empty($_FILES["image"]["name"])) { 
+    if(!empty($_FILES["images"]["name"])) { 
         // Get file info 
-        $fileName = basename($_FILES["image"]["name"]); 
+        $fileName = basename($_FILES["images"]["name"]); 
         $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
          
         // Allow certain file formats 
         $allowTypes = array('jpg','png','jpeg','gif'); 
         if(in_array($fileType, $allowTypes)) { 
-            $image = $_FILES['image']['tmp_name']; 
-            $imgContent = file_get_contents($image); 
+            $image = $_FILES['images']['tmp_name']; 
+            $imgContent = addslashes(file_get_contents($image)); 
          
             // Prepare and execute the SQL statement using prepared statements
-            $stmt = $conn->prepare("INSERT INTO blog (title, category, content, image) VALUES (?, ?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO blog (title, category, content, images) VALUES (?, ?, ?, ?)");
             $stmt->bind_param("sssb", $title, $category, $content, $imgContent);
             
             if($stmt->execute()) { 
@@ -54,7 +54,6 @@ echo $statusMsg;
 $conn->close();
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,7 +64,23 @@ $conn->close();
 </head>
 <body>
 <aside>
-    <!-- Your sidebar content here -->
+<nav class="sideNav">
+            <h2>Admin Panel</h2>
+            <div class="userProfile"></div>
+            <span class="name">Bijay Gurung</span> <!-- we have to take the name and email from database. -->
+            <br>
+            <span class="email">stha4580@gmail.com</span> 
+            <ul>
+                <li><a href="admin.php" id="dashboard"><i class="fa-solid fa-gauge"></i>Dashboard</a></li>
+                <li><a href="blogPost.php" id="blogPost"><i class="fa-solid fa-pen"></i>Blog Post</a></li>
+                <li><a href="comments.php" id="comments"><i class="fa-solid fa-comment"></i>Comments</a></li>
+                <li><a href="categories.php" id="categories"><i class="fa-solid fa-clipboard"></i>Categories and Tags</a></li>
+                <li><a href="#" id="mediaLibrary"><i class="fa-solid fa-folder-open"></i>Media Library</a></li>
+                <li><a href="user.php" id="user"><i class="fa-solid fa-user"></i>User</a></li>
+                <li><a href="#" id="notifications"><i class="fa-solid fa-bell"></i>Notifications</a></li>
+                <li><a href="#" id="setting"><i class="fa-solid fa-gear"></i>Setting</a></li>
+            </ul>
+        </nav>
 </aside>
 
 <section> 
@@ -101,7 +116,7 @@ $conn->close();
                 ?>
             </select>
             <textarea rows="6" column="50" name="content" required></textarea>
-            <input type="file" id="myfile" name="image">
+            <input type="file" id="myfile" name="images">
             <button type="submit" name="submit">Add Post</button>
         </form>
     </div>

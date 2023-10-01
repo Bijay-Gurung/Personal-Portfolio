@@ -1,15 +1,36 @@
+<?php
+$db_host = 'localhost';
+$db_user = 'root';
+$db_pass = '';
+$db_name = 'blogs';
+
+$mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
+if ($mysqli->connect_errno) {
+    echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+    exit();
+}
+
+$sql = "SELECT * FROM `blog`";
+
+$result = $mysqli->query($sql);
+
+if ($result === false) {
+    echo "Query error: " . $mysqli->error;
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--<meta http-equiv="refresh" content="0;url=signup.php">-->
-    <title>Blog Post</title>
+    <title>Blog</title>
     <link href="blog.css" rel="stylesheet">
 </head>
 <body>
     <header>
-        <h3>BijayGurung<span>{}</span>;</h3>
+    <h3>BijayGurung<span>{}</span>;</h3>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -27,38 +48,30 @@
 
     <section>
         <?php
-        $db_host = 'localhost';
-        $db_user = 'root';
-        $db_pass = '';
-        $db_name = 'blogs';
-
-        $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
-        if ($mysqli->connect_errno) {
-            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-            exit();
-        }
-
-        $sql = "SELECT * FROM `blog`";
-
-        $result = $mysqli->query($sql);
-
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo "<div class='blog-post'>";
                 echo "<h3 class='title'>" . $row["title"] . "</h3>";
                 echo "<span class='category'>" . $row["category"] . "</span>";
-                echo "<img src='data:image/jpg;charset=utf8;base64," . base64_encode($row['image']) . "' />";
+
+                // Check if the 'images' column contains image data
+                if (!empty($row['images'])) {
+                    $imgData = base64_encode($row['images']);
+                    echo "<img src='data:image/jpeg;base64," . $imgData . "' alt='Blog Image' />";
+                } else {
+                    echo "No image found.";
+                }
+
                 echo "<p class='paragraph'>" . $row["content"] . "</p>";
                 echo "</div>";
             }
         } else {
             echo "No results found.";
         }
-        $result->free_result();
 
+        $result->free_result();
         $mysqli->close();
         ?>
     </section>
-    <script src="https://kit.fontawesome.com/4f9d824da5.js" crossorigin="anonymous"></script>
 </body>
 </html>
