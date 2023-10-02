@@ -5,9 +5,9 @@ $db_user = 'root';
 $db_pass = '';
 $db_name = 'blogs';
 
-$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+$db = new mysqli($db_host, $db_user, $db_pass, $db_name);
+if ($db->connect_error) {
+    die("Connection failed: " . $db->connect_error);
 }
 
 $status = $statusMsg = ''; 
@@ -15,6 +15,7 @@ if(isset($_POST["submit"])) {
     $title = isset($_POST['title']) ? $_POST['title'] : '';
     $category = isset($_POST['category']) ? $_POST['category'] : '';
     $content = isset($_POST['content']) ? $_POST['content'] : '';
+    $image = isset($_POST['images']) ? $_POST['images'] : '';
      
     $status = 'error'; 
     if(!empty($_FILES["images"]["name"])) { 
@@ -29,16 +30,15 @@ if(isset($_POST["submit"])) {
             $imgContent = addslashes(file_get_contents($image)); 
          
             // Prepare and execute the SQL statement using prepared statements
-            $stmt = $conn->prepare("INSERT INTO blog (title, category, content, images) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("sssb", $title, $category, $content, $imgContent);
-            
-            if($stmt->execute()) { 
+            $insert = $db->query("INSERT INTO blog (title, category, content, images, created, updated_at) VALUES ('$title','$category','$content','$imgContent',NOW(),NOW())");
+                        
+            if($insert) { 
                 $status = 'success'; 
                 $statusMsg = "File uploaded successfully."; 
             } else { 
                 $statusMsg = "File upload failed, please try again."; 
             }  
-            $stmt->close();
+            $db->close();
         } else { 
             $statusMsg = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'; 
         } 
@@ -48,10 +48,7 @@ if(isset($_POST["submit"])) {
 } 
  
 // Display status message 
-echo $statusMsg; 
-
-// Close the database connection
-$conn->close();
+echo $statusMsg;
 ?>
 
 <!DOCTYPE html>
