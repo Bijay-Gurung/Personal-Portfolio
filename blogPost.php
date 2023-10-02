@@ -29,7 +29,7 @@ if(isset($_POST["submit"])) {
             $image = $_FILES['images']['tmp_name']; 
             $imgContent = addslashes(file_get_contents($image)); 
          
-            // Prepare and execute the SQL statement using prepared statements
+            // Prepare and execute the SQL statement using query statements
             $insert = $db->query("INSERT INTO blog (title, category, content, images, created, updated_at) VALUES ('$title','$category','$content','$imgContent',NOW(),NOW())");
                         
             if($insert) { 

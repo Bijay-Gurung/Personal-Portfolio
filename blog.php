@@ -47,26 +47,31 @@ if ($result === false) {
     </header>
 
     <section>
+        <h1>Blogs</h1>
         <?php
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo "<div class='blog-post'>";
                 echo "<h3 class='title'>" . $row["title"] . "</h3>";
                 echo "<span class='category'>" . $row["category"] . "</span>";
+                echo"<br>";
+                echo "<span class='date'>" . $row["created"] . "</span>";
+                echo "<br>";
 
                 // Check if the 'images' column contains image data
                 if (!empty($row['images'])) {
                     $imgData = base64_encode($row['images']);
-                    echo "<img src='data:image/jpeg;base64," . $imgData . "' alt='Blog Image' />";
+                    echo "<img src='data:image/jpeg;base64," . $imgData . "' alt='Blog Image' height='300px' width='250px'/>";
                 } else {
                     echo "No image found.";
                 }
 
+                echo "<br>";
                 echo "<p class='paragraph'>" . $row["content"] . "</p>";
                 echo "</div>";
             }
         } else {
-            echo "No results found.";
+            echo "Nothing Post.";
         }
 
         $result->free_result();
