@@ -53,8 +53,7 @@ if ($result === false) {
             while ($row = $result->fetch_assoc()) {
                 echo "<div class='blog-post'>";
                 echo "<h3 class='title'>" . $row["title"] . "</h3>";
-                echo "<span class='category'>" . $row["category"] . "</span>";
-                echo"<br>";
+                echo "<span class='category'>" . $row["category"] . "/" . "</span>";
                 echo "<span class='date'>" . $row["created"] . "</span>";
                 echo "<br>";
 
