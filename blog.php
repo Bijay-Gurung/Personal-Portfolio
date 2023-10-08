@@ -68,6 +68,19 @@ if ($result === false) {
                 echo "<br>";
                 echo "<p class='paragraph'>" . $row["content"] . "</p>";
                 echo "</div>";
+
+                echo "<div class='commentBox'>";
+                echo "<form method='post' enctype='multipart/form-data'>";
+                echo "<h3>Comment</h3>";
+                echo "<input type='text' placeholder='Name' name='name' id='name' required>";
+                echo "<br>";
+                echo "<textarea rows='5' cols='24' placeholder='Add your Comment' name='comments' id='comments' required></textarea>";
+                echo "<br>";
+                echo "<input type='submit' value='Post' id='submit' name='submit'>";
+                echo "</form>";
+                echo "</div>";
+
+                echo "<div class='bottomLine'></div>";
             }
         } else {
             echo "Nothing Post.";

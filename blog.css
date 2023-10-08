@@ -48,11 +48,10 @@ section h1{
     text-align: center;
     margin-top: 10px;
 }
-.blog-post{
+.bottomLine{
     position: relative;
     top: 20px;
     border-bottom: 1px solid #fff;
-    
 }
 img{
     border-radius: 9px;
@@ -60,8 +59,39 @@ img{
     margin-top: 10px;
 }
 .title{
-    padding-top: 10px;
+    padding-top: 20px;
 }
 .paragraph{
     padding-top: 10px;
+    padding-bottom: 10px;
+}
+.commentBox{
+    position: relative;
+    left: 37%;
+    height: 200px;
+    width: 200px;
+    background-color: #ffffff05;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(25px);
+    box-shadow: 4px 3px 10px 3px #BEB7AF;
+    border-radius: 9px;
+}
+.commentBox input, textarea{
+    color: #000;
+    border-radius: 9px;
+    margin-left: 13px;
+}
+.commentBox h3{
+    text-align: center;
+}
+.commentBox #comments{
+    margin-top: 10px;
+}
+.commentBox #submit{
+    margin-left: 37%;
+    width: 40px;
+}
+.blog-post img{
+    position: relative;
+    left: 18%;
 }
