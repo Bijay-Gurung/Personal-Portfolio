@@ -56,8 +56,7 @@ if ($result === false) {
                 echo "<span class='category'>" . $row["category"] . "/" . "</span>";
                 echo "<span class='date'>" . $row["created"] . "</span>";
                 echo "<br>";
-
-                // Check if the 'images' column contains image data
+               
                 if (!empty($row['images'])) {
                     $imgData = base64_encode($row['images']);
                     echo "<img src='data:image/jpeg;base64," . $imgData . "' alt='Blog Image' height='300px' width='250px'/>";

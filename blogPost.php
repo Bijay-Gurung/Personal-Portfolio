@@ -37,14 +37,14 @@ if(isset($_POST["submit"])) {
                 $statusMsg = "File uploaded successfully."; 
             } else { 
                 $statusMsg = "File upload failed, please try again."; 
-            }  
-            $db->close();
+            }
         } else { 
             $statusMsg = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'; 
         } 
     } else { 
         $statusMsg = 'Please select an image file to upload.'; 
-    } 
+    }
+    $db->close();
 } 
  
 // Display status message 
