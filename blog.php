@@ -20,6 +20,38 @@ if ($result === false) {
 }
 ?>
 
+<?php
+//Database Configuration
+$db_hostComment = 'localhost';
+$db_userComment = 'root';
+$db_passComment = '';
+$db_nameComment = 'commentsection';
+
+//Database Connection
+$db = new mysqli($db_hostComment,$db_userComment,$db_passComment,$db_nameComment);
+//check connection
+if($db->connect_error){
+    die("Connection failed: " . $db->connect_error);
+}
+//inserting data into database
+if($_SERVER["REQUEST_METHOD"] === "POST"){
+    $name = $_POST['name'];
+    $comments = $_POST['comments'];
+
+     // Prepare and bind the statement to prevent SQL injection
+     $stmt = $db->prepare("INSERT INTO comments(name,comments,created)VALUES(?,?,NOW())");
+     $stmt->bind_param('ss',$name, $comments);
+    if($stmt->execute()){
+        echo "<script>alert('comment Sent Successfully');</script>";
+    }
+    else{
+        echo "<script>alert('Connection failed: " . $db->error." ');</script>";
+    }
+    $stmt->close();
+    $db->close();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
