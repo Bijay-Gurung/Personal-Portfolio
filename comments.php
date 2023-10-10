@@ -30,6 +30,36 @@
 <section> <!--Use Dom for this section-->
 <h1>Comments</h1>
 
+<?php
+//Database connection settings for blog_db
+$blog_db_host = 'localhost';
+$blog_db_username = 'root';
+$blog_db_password = '';
+$blog_db_name = 'blogs';
+
+//Database connection setting for comment_db
+$comment_db_host = 'localhost';
+$comment_db_username = 'root';
+$comment_db_password = '';
+$comment_db_name = 'commentsection';
+
+//Creating connection to both database
+$blog_conn = new mysqli($blog_db_host,$blog_db_username,$blog_db_password,$blog_db_name);
+
+if($blog_conn->connect_error){
+    die("Connection failed: " . $blog_conn->connect_error);
+}
+
+$comment_conn = new mysqli($comment_db_host,$comment_db_username,$comment_db_password,$comment_db_name);
+
+if($comment_conn->connect_error){
+    die("Connection failed: " . $comment_conn->connect_error);
+}
+
+//Query to retrieve data from both tables using a JOIN
+//Currently i am learning sql join method
+?>
+
 </section>
     <script src="https://kit.fontawesome.com/4f9d824da5.js" crossorigin="anonymous"></script>
 </body>
