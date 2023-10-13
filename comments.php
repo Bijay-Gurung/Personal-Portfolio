@@ -29,7 +29,6 @@
 
 <section> <!--Use Dom for this section-->
 <h1>Comments</h1>
-
 <?php
 //Database connection settings for blog_db
 $blog_db_host = 'localhost';
@@ -73,11 +72,23 @@ if($result === false){
 }
 
 //Displaying the comment on comment admin panel
-
-
-
+if ($result->num_rows > 0) {
+    echo "<div class=comments>";
+    echo "<table id='comment'>";
+    echo "<tr><th>Title</th><th>Name</th><th>Comment</th></tr>";
+    while($row = $result->fetch_assoc()){
+        echo "<tr><td>" .$row['title'] . "</td><td>" . $row['name'] . "</td><td>" . $row['comments'] . "</td><tr>";
+    }
+    echo "</div>";
+    echo "</table>";
+}
+else{
+    echo "no result found";
+}
+//Close Database Connections
+$blog_conn->close();
+$comment_conn->close();
 ?>
-
 </section>
     <script src="https://kit.fontawesome.com/4f9d824da5.js" crossorigin="anonymous"></script>
 </body>

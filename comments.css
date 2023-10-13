@@ -74,3 +74,11 @@ h1{
     grid-column-start: 6;
     grid-column-end: 8;
 }
+.comments{
+    position: relative;
+    top: 40px;
+    left: 440px;
+}
+table tr th{
+    padding-left: 20px;
+}
