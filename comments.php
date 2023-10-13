@@ -57,15 +57,25 @@ if($comment_conn->connect_error){
 }
 
 //Query to retrieve data from both tables using a JOIN
-$query = "SELECT blog.*,comments.* FROM blog FULL OUTER JOIN comments ON blog.commentID = comments.ID";
+$query = "SELECT blog.*, comments.*
+FROM blogs.blog
+LEFT JOIN commentsection.comments ON blogs.blog.commentID = commentsection.comments.ID
+UNION
+SELECT blog.*, comments.*
+FROM blogs.blog
+RIGHT JOIN commentsection.comments ON blogs.blog.commentID = commentsection.comments.ID";
 
-$result = $blog_conn->query($query);
+
+$result = $comment_conn->query($query);
 
 if($result === false){
-    die("Query failed: ". $blog_conn->error);
+    die("Query failed: ". $comment_conn->error);
 }
 
-//Display the data on webpage
+//Displaying the comment on comment admin panel
+
+
+
 ?>
 
 </section>
