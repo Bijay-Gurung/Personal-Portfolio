@@ -57,7 +57,15 @@ if($comment_conn->connect_error){
 }
 
 //Query to retrieve data from both tables using a JOIN
-//Currently i am learning sql join method
+$query = "SELECT blog.*,comments.* FROM blog FULL OUTER JOIN comments ON blog.commentID = comments.ID";
+
+$result = $blog_conn->query($query);
+
+if($result === false){
+    die("Query failed: ". $blog_conn->error);
+}
+
+//Display the data on webpage
 ?>
 
 </section>
