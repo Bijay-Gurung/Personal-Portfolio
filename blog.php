@@ -81,6 +81,16 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
     <section>
         <h1>Blogs</h1>
         <?php
+          echo "<div class='commentBox'>";
+          echo "<form method='post' enctype='multipart/form-data'>";
+          echo "<h3>Comment</h3>";
+          echo "<input type='text' placeholder='Name' name='name' id='name' required>";
+          echo "<br>";
+          echo "<textarea rows='5' cols='24' placeholder='Add your Comment' name='comments' id='comments' required></textarea>";
+          echo "<br>";
+          echo "<input type='submit' value='Post' id='submit' name='submit'>";
+          echo "</form>";
+          echo "</div>";
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo "<div class='blog-post'>";
@@ -98,17 +108,6 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 
                 echo "<br>";
                 echo "<p class='paragraph'>" . $row["content"] . "</p>";
-                echo "</div>";
-
-                echo "<div class='commentBox'>";
-                echo "<form method='post' enctype='multipart/form-data'>";
-                echo "<h3>Comment</h3>";
-                echo "<input type='text' placeholder='Name' name='name' id='name' required>";
-                echo "<br>";
-                echo "<textarea rows='5' cols='24' placeholder='Add your Comment' name='comments' id='comments' required></textarea>";
-                echo "<br>";
-                echo "<input type='submit' value='Post' id='submit' name='submit'>";
-                echo "</form>";
                 echo "</div>";
 
                 echo "<div class='bottomLine'></div>";
