@@ -35,12 +35,14 @@ if($db->connect_error){
 }
 //inserting data into database
 if($_SERVER["REQUEST_METHOD"] === "POST"){
+    $title = $_POST['title'];
     $name = $_POST['name'];
     $comments = $_POST['comments'];
 
      // Prepare and bind the statement to prevent SQL injection
-     $stmt = $db->prepare("INSERT INTO comments(name,comments,created)VALUES(?,?,NOW())");
-     $stmt->bind_param('ss',$name, $comments);
+     $stmt = $db->prepare("INSERT INTO comments (title,name, comments, created) VALUES (?,?, ?, NOW())");
+     $stmt->bind_param('sss',$title, $name, $comments);
+
     if($stmt->execute()){
         echo "<script>alert('comment Sent Successfully');</script>";
     }
@@ -81,16 +83,17 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
     <section>
         <h1>Blogs</h1>
         <?php
-          echo "<div class='commentBox'>";
-          echo "<form method='post' enctype='multipart/form-data'>";
-          echo "<h3>Comment</h3>";
-          echo "<input type='text' placeholder='Name' name='name' id='name' required>";
-          echo "<br>";
-          echo "<textarea rows='5' cols='24' placeholder='Add your Comment' name='comments' id='comments' required></textarea>";
-          echo "<br>";
-          echo "<input type='submit' value='Post' id='submit' name='submit'>";
-          echo "</form>";
-          echo "</div>";
+            echo "<div class='commentBox'>";
+            echo "<form method='post' enctype='multipart/form-data'>";
+            echo "<h3>Comment</h3>";
+            echo "<input type='text' placeholder='Title' name='title' id='title' required>";
+            echo "<input type='text' placeholder='Name' name='name' id='name' required>";
+            echo "<br>";
+            echo "<textarea rows='5' cols='24' placeholder='Add your Comment' name='comments' id='comments' required></textarea>";
+            echo "<br>";
+            echo "<input type='submit' value='Post' id='submit' name='submit'>";
+            echo "</form>";
+            echo "</div>";        
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo "<div class='blog-post'>";

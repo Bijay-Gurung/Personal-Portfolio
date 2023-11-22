@@ -25,71 +25,72 @@
                 <li><a href="#" id="setting"><i class="fa-solid fa-gear"></i>Setting</a></li>
             </ul>
         </nav>
-</aside>
+    </aside>
 
-<section> <!--Use Dom for this section-->
-<h1>Comments</h1>
-<?php
-//Database connection settings for blog_db
-$blog_db_host = 'localhost';
-$blog_db_username = 'root';
-$blog_db_password = '';
-$blog_db_name = 'blogs';
+    <section>
+        <h1>Comments</h1>
 
-//Database connection setting for comment_db
-$comment_db_host = 'localhost';
-$comment_db_username = 'root';
-$comment_db_password = '';
-$comment_db_name = 'commentsection';
+        <?php
+        // Database connection settings for blog_db
+        $blog_db_host = 'localhost';
+        $blog_db_username = 'root';
+        $blog_db_password = '';
+        $blog_db_name = 'blogs';
 
-//Creating connection to both database
-$blog_conn = new mysqli($blog_db_host,$blog_db_username,$blog_db_password,$blog_db_name);
+        // Database connection setting for comment_db
+        $comment_db_host = 'localhost';
+        $comment_db_username = 'root';
+        $comment_db_password = '';
+        $comment_db_name = 'commentsection';
 
-if($blog_conn->connect_error){
-    die("Connection failed: " . $blog_conn->connect_error);
-}
+        // Creating connection to both databases
+        $blog_conn = new mysqli($blog_db_host, $blog_db_username, $blog_db_password, $blog_db_name);
 
-$comment_conn = new mysqli($comment_db_host,$comment_db_username,$comment_db_password,$comment_db_name);
+        if ($blog_conn->connect_error) {
+            die("Connection failed: " . $blog_conn->connect_error);
+        }
 
-if($comment_conn->connect_error){
-    die("Connection failed: " . $comment_conn->connect_error);
-}
+        $comment_conn = new mysqli($comment_db_host, $comment_db_username, $comment_db_password, $comment_db_name);
 
-//Query to retrieve data from both tables using a JOIN
-$query = "SELECT blog.*, comments.*
-FROM blogs.blog
-LEFT JOIN commentsection.comments ON blogs.blog.commentID = commentsection.comments.ID
-UNION
-SELECT blog.*, comments.*
-FROM blogs.blog
-RIGHT JOIN commentsection.comments ON blogs.blog.commentID = commentsection.comments.ID";
+        if ($comment_conn->connect_error) {
+            die("Connection failed: " . $comment_conn->connect_error);
+        }
 
+        // Query to retrieve data from both tables using a JOIN and filtering by title
+        $query = "SELECT blog.*, comments.*
+                  FROM blogs.blog
+                  LEFT JOIN commentsection.comments ON blogs.blog.commentID = commentsection.comments.ID
+                  WHERE comments.title IS NOT NULL AND comments.title = blogs.blog.title
+                  ORDER BY blogs.blog.title, commentsection.comments.name";
 
-$result = $comment_conn->query($query);
+        $result = $comment_conn->query($query);
 
-if($result === false){
-    die("Query failed: ". $comment_conn->error);
-}
+        if ($result === false) {
+            die("Query failed: " . $comment_conn->error);
+        }
 
-//Displaying the comment on comment admin panel
-if ($result->num_rows > 0) {
-    echo "<div class=comments>";
-    echo "<table id='comment'>";
-    echo "<tr><th>Title</th><th>Name</th><th>Comment</th></tr>";
-    while($row = $result->fetch_assoc()){
-        echo "<tr><td>" .$row['title'] . "</td><td>" . $row['name'] . "</td><td>" . $row['comments'] . "</td><tr>";
-    }
-    echo "</div>";
-    echo "</table>";
-}
-else{
-    echo "no result found";
-}
-//Close Database Connections
-$blog_conn->close();
-$comment_conn->close();
-?>
-</section>
+        // Displaying the comments in a structured format
+        if ($result->num_rows > 0) {
+            echo "<div class='comments'>";
+            echo "<table id='comment'>";
+            echo "<tr><th>Title</th><th>Name</th><th>Comment</th></tr>";
+
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr><td>" . $row['title'] . "</td><td>" . $row['name'] . "</td><td>" . $row['comments'] . "</td></tr>";
+            }
+
+            echo "</table>";
+            echo "</div>";
+        } else {
+            echo "No results found";
+        }
+
+        // Close Database Connections
+        $blog_conn->close();
+        $comment_conn->close();
+        ?>
+    </section>
+
     <script src="https://kit.fontawesome.com/4f9d824da5.js" crossorigin="anonymous"></script>
 </body>
 </html>
