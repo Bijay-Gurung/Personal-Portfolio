@@ -106,3 +106,23 @@ nav ul li #github:hover{
     top: 210px;
     left: 60px;
 }
+.project .tictactoe{
+    height: 200px;
+    width: 200px;
+    background-image: url(images/Tictactoe\ project.png);
+    background-position: center;
+    background-size: cover;
+    border-radius: 15px;
+    box-shadow: 4px 3px 10px 3px #BEB7AF;
+    grid-row-start: 2;
+    grid-row-end: 4;
+    grid-column-start: 8;
+    grid-column-end: 10;
+}
+.project .tictactoe a{
+    font-size: small;
+    text-decoration: none;
+    position: relative;
+    top: 210px;
+    left: 60px;
+}
