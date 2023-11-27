@@ -77,6 +77,15 @@ nav ul li #instagram:hover{
 nav ul li #github:hover{
     color: #000;
 }
+nav ul li .blog{
+    display: none;
+}
+nav ul li .signup{
+    display: none;
+}
+nav ul li .login{
+    display: none;
+}
 button{
     border-radius: 8px;
     position: relative;
