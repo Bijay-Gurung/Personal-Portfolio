@@ -67,8 +67,9 @@ img{
 }
 .commentBox{
     position: relative;
-    left: 37%;
-    height: 200px;
+    top: 20px;
+    left: 43%;
+    height: 230px;
     width: 200px;
     background-color: #ffffff05;
     backdrop-filter: blur(10px);
