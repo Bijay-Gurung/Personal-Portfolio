@@ -78,6 +78,8 @@ h1{
     grid-row-end: 3;
     grid-column-start: 5;
     grid-column-end: 11;
+    position: relative;
+    bottom: 40px;
 }
 input{
     color: #000;
@@ -91,9 +93,15 @@ button{
     border: none;
     width: 70px;
 }
-.listOfCategories, ol{
+
+.listOfCategories{
     grid-row-start: 2;
     grid-row-end: 6;
     grid-column-start: 5;
     grid-column-end: 8;
+    overflow: hidden;
+    overflow-y: scroll;
+    position: relative;
+    top: 30px;
+    left: 15px;
 }

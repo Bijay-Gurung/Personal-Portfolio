@@ -23,6 +23,7 @@
                 <li><a href="user.php" id="user"><i class="fa-solid fa-user"></i>User</a></li>
                 <li><a href="#" id="notifications"><i class="fa-solid fa-bell"></i>Notifications</a></li>
                 <li><a href="#" id="setting"><i class="fa-solid fa-gear"></i>Setting</a></li>
+                <li><a href="#" id="logout">Logout</a></li>
             </ul>
         </nav>
 </aside>

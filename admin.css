@@ -59,6 +59,9 @@ a{
 i{
     padding-right: 10px;
 }
+#logout{
+    margin-left: 10px;
+}
 section{
     grid-row-start: 2;
     grid-row-end: 7;
