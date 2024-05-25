@@ -89,7 +89,7 @@ nav ul li .login{
 button{
     border-radius: 8px;
     position: relative;
-    left: 26%;
+    left: 40px;
     background-color: #ffffff05;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(25px);
@@ -97,4 +97,9 @@ button{
 }
 #resume{
     padding-right: 0.3em;
+}
+
+.mail{
+    position: relative;
+    top: 7px;
 }

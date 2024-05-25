@@ -44,8 +44,19 @@ nav ul li #instagram:hover{
 nav ul li #github:hover{
     color: #000;
 }
+
+nav ul li .blog{
+    display: none;
+}
+nav ul li .signup{
+    display: none;
+}
+nav ul li .login{
+    display: none;
+}
+
 .project{
-    height: 600px;
+    height: 450px;
     width: 1000px;
     background-color: #ffffff05;
     backdrop-filter: blur(10px);
