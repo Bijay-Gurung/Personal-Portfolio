@@ -200,6 +200,17 @@ nav ul li .login{
     padding-top: 20px;
     padding-left: 18px;
 }
+.java{
+    grid-row-start: 7;
+    grid-row-end: 9;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    height: 135px;
+    width: 135px;
+    padding-top: 20px;
+    padding-left: 18px;
+}
+
 .languages{
     position: relative;
     top: 140px;
