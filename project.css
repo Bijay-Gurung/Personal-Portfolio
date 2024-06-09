@@ -80,7 +80,7 @@ nav ul li .login{
 .project .weather{
     height: 200px;
     width: 200px;
-    background-image: url(images/WeatherProject.png);
+    background-image: url(WeatherProject.png);
     background-position: center;
     background-size: cover;
     border-radius: 15px;
@@ -100,7 +100,7 @@ nav ul li .login{
 .project .toDoList{
     height: 200px;
     width: 200px;
-    background-image: url(images/toDoList\ Project.png);
+    background-image: url(toDoList\ Project.png);
     background-position: center;
     background-size: cover;
     border-radius: 15px;
@@ -120,7 +120,7 @@ nav ul li .login{
 .project .tictactoe{
     height: 200px;
     width: 200px;
-    background-image: url(images/Tictactoe\ project.png);
+    background-image: url(Tictactoe\ project.png);
     background-position: center;
     background-size: cover;
     border-radius: 15px;
